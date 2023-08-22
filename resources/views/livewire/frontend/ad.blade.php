@@ -1,0 +1,17 @@
+<div>
+	<div class="wthree-mid jarallax">
+		<img class="jarallax-img" src="{{ asset('frontend/images/33.jpg')}}" alt="">
+		<div class="container">
+			<h3>{{ $empresa->nombre }}</h3>
+			<p style="color: white !important">
+				<?php
+		            $texto = preg_replace ('/<[^>]*>/', ' ', $empresa->info);
+		            echo substr($texto, 0, 300); 
+		        ?>
+	        </p>
+			<div class="botton">
+				<a href="{{ url('/quienessomos')}}">Sobre Nosotros</a>
+			</div>
+		</div>
+	</div>
+</div>
