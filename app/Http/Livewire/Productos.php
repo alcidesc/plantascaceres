@@ -18,7 +18,7 @@ class Productos extends Component{
     protected $queryString = ['search' => ['except' => '']];
     protected $paginationTheme = 'bootstrap';
     public $search='';
-    public $nombre,$producto_id,$descripcion,$slug,$codigo,$precio2,$precio3,$iva,
+    public $nombre,$producto_id,$descripcion,$slug,$codigo,$precio2,$precio3,$iva=10,
         $precio,$stock,$oferta,$foto,$fotoupdate,$categorias_id;
     public $collapsed="collapsed-card",$collapsedicon="fa-plus";
     public $updateMode = false,$fila="id",$orden="desc";
@@ -53,7 +53,6 @@ class Productos extends Component{
     public function store(){
         $validatedDate = $this->validate([
             'nombre' => ['required','unique:productos'],
-            'descripcion' => 'required',
             'slug' => ['required','unique:productos'],
             'codigo' => ['required','unique:productos'],
             'precio' => 'required',

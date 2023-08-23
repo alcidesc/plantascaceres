@@ -21,7 +21,10 @@ class CreateProductosTable extends Migration
             $table->longText('descripcion')->nullable();
             $table->integer('stock')->nullable();
             $table->integer('precio');
+            $table->integer('precio2')->nullable();
+            $table->integer('precio3')->nullable();
             $table->integer('oferta')->nullable();
+            $table->integer('iva')->default(10);
             $table->boolean('estado')->default(1);
             $table->boolean('tipo')->default(1);
             $table->string('foto',300)->nullable();

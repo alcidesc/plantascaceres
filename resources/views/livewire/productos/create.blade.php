@@ -166,6 +166,7 @@
                             <span class="input-group-text"><i class="fas fa-percent"></i></span>
                         </div>
                         <select name="iva" class="form-control @error('iva') is-invalid @enderror">
+                            <option selected>Seleccione una opción</option>
                             <option value="10" selected>10%</option>
                             <option value="5">5%</option>
                         </select>

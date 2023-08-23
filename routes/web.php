@@ -37,9 +37,11 @@ Route::get('admin/categorias', function () {
 Route::get('admin/productos', function () {
     return view('admin.productos.index');
 })->middleware('auth');
+
 Route::get('admin/empresa', function () {
     return view('admin.empresa.index');
 })->middleware('auth');
+
 Route::get('/admin/mensajesproductos', function () {
     return view('admin.mensajesproductos.index');
 })->middleware('auth');

@@ -1,24 +1,16 @@
 @extends('adminlte::page')
 
 @section('title', 'Perfil de Empresa')
-<head>
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-	integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-	crossorigin=""/>
-	<!-- Agrega el CSS de Leaflet -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-<!-- Agrega el JavaScript de Leaflet -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-</head>
+	
 
 @section('content_header')
  <h1>Perfil de Empresa </h1><hr>
 @stop
 
 @section('content')
-
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+		integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+		crossorigin=""/>
 	<div class="card">
         <div class="card-body">
             <div class="row">
@@ -252,50 +244,27 @@
 					</div>
 				</div>
 			</div>
-			<div class="card-footer" align="center">
-				<a href="empresa/{{ $empresa->id }}/edit"><button type="button" class="btn btn-info"><i class="fas fa-save"></i> Editar Empresa</button></a>
-			</div>
 		</div>
-	@stop
-	
-	@section('adminlte_js')
-        <script>
-            $('#info').summernote({
-                height: 50,
-                codemirror: {
-                    theme: 'monokai'
-                },
-                callbacks: {
-                    onChange: function(contents, $editable) {
-                        @this.set('info', contents);
-                    }
-                }
-            });
+		<div class="card-footer" align="center">
+			<a href="empresa/{{ $empresa->id }}/edit"><button type="button" class="btn btn-info"><i class="fas fa-save"></i> Editar Empresa</button></a>
+		</div>
+	</div>
+@stop
 
-            $('#info').summernote('disable');
-
-            Livewire.on('info', info => {
-                if(info){
-                    $('#info').summernote('enable');
-                    $('#info').summernote('code', info);
-                }else{
-                    $('#info').summernote('disable');
-                }
-            });
-        </script>
-        
-        <script> console.log('Hi!'); </script>
-        <!--js para editar o marcar ubicación google maps -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHcQT0yBuaLXWdx6Mv_hAroOB0HLmNp5g&callback"></script>
-        <script src="{{ asset('js/makermaps.js')}}" charset="utf-8"></script>
-        <script>initialize({{$latitud}}, {{$longitud}});</script>
-        <script>
-            function getMarkerCoords(marker){
-            var markerCoords = marker.getPosition();
-            $('#id_lat').val( markerCoords.lat() );
-            $('#id_lng').val( markerCoords.lng() );
-            @this.set('latitud', markerCoords.lat());
-            @this.set('longitud', markerCoords.lng());
-        }
-        </script>
-    @stop
+@section('js')
+	<script> console.log('Hi!'); </script>
+	<!-- Mostrando mapa y calculando distancias y tiempos -->
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+	<script src="{{ asset('frontend/js/makermaps.js')}}" charset="utf-8"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHcQT0yBuaLXWdx6Mv_hAroOB0HLmNp5g&callback=Maps" async defer></script>
+	<script>
+		function Maps(){
+			let lat = {{$empresa->latitud}};
+			let lng = {{$empresa->longitud}};
+			let empresa = '{{$empresa->nombre}}';
+			let direccion = '{{$empresa->direccion}}';
+			initMap(lat,lng,empresa,direccion);
+		}        
+	</script>
+	<!-- Fin Mapas -->
+@stop
