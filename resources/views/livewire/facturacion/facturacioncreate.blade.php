@@ -65,7 +65,7 @@
             <div class="col-md-2 form-group">
                 <label for="precioSeleccionado">Seleccionar Precio:</label><br>
                 <select class="form-control" id="precioSeleccionado" wire:model="precioSeleccionado">
-                    <option value="precio1">Precio 1</option>
+                    <option value="precio">Precio 1</option>
                     <option value="precio2">Precio 2</option>
                     <option value="precio3">Precio 3</option>
                 </select>

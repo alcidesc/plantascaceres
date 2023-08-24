@@ -1,117 +1,39 @@
-function calculartiempo(latitud,longitud,tipo,cotizaciondelivery,limite,totalcostoproducto){
-    if (navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(function(objPosition){
-            var lon = objPosition.coords.longitude;
-            var lat = objPosition.coords.latitude;
-            var persona = lat+","+lon;
-            var lat1 = latitud;
-            var lng1 = longitud;
-            var empresa = lat1+","+lng1;
+function calculartiempo(latituduser, longituduser, latitud, longitud, costodelivery, tipo, limite, totalcostoproducto) {
+        console.log("Ingresó en calculartiempo");
+        var lat = latituduser;
+        var lon = longituduser;
+        var lat1 = latitud;
+        var lng1 = longitud;
+        lat1 = gradosARadianes(lat1);
+        lng1 = gradosARadianes(lng1);
+        lat = gradosARadianes(lat);
+        lon = gradosARadianes(lon);
+        console.log("Empresa:", lat1, lng1);
+        console.log("Persona:", lat, lon);
+        // Aplicar fórmula para calcular la distancia en kilómetros
+        const RADIO_TIERRA_EN_KILOMETROS = 6371;
+        let diferenciaEntreLongitudes = lng1 - lon;
+        let diferenciaEntreLatitudes = lat1 - lat;
+        console.log("diferenciaEntreLongitudes:", diferenciaEntreLongitudes);
+        console.log("diferenciaEntreLatitudes:", diferenciaEntreLatitudes);
+        let a = Math.pow(Math.sin(diferenciaEntreLatitudes / 2.0), 2) + Math.cos(lat1) * Math.cos(lat) * Math.pow(Math.sin(diferenciaEntreLongitudes / 2.0), 2);
+        let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        let distanciaEnKilometros = RADIO_TIERRA_EN_KILOMETROS * c;
+        console.log("a:", a);
+        console.log("c:", c);
+        console.log("distanciaEnKilometros:", distanciaEnKilometros);
 
-            var service = new google.maps.DistanceMatrixService();
-            service.getDistanceMatrix({
-                origins: [persona],
-                destinations: [empresa],
-                travelMode: google.maps.TravelMode.DRIVING,
-                avoidHighways: false,
-                avoidTolls: false
-            }, callback);
+        // Multiplicar la distancia por la cotización y redondear al entero mayor más cercano
+        let distanciaMultiplicada = Math.ceil(distanciaEnKilometros * costodelivery);
+        console.log("Distancia multiplicada:", distanciaMultiplicada);
 
-            function callback(response, status) {
-                if (status != google.maps.DistanceMatrixStatus.OK) {
-                    console.log(err);
-                } else {
-                    var origin = response.originAddresses[0];
-                    var destination = response.destinationAddresses[0];
-                    if (response.rows[0].elements[0].status === "ZERO_RESULTS") {
-                        document.getElementById("error").innerHTML = "No pudimos establecer rutas desde " 
-                          + origin + " y " + destination;
-                        $('#error').removeClass('fade').addClass('show'); 
-                    } else {
-                        var distance = response.rows[0].elements[0].distance;
-                        var duration = response.rows[0].elements[0].duration;
-                        var distance_value = distance.value;
-                        var distance_text = distance.text;
-                        var duracion_text = duration.text;
-                        var miles = distance_text.substring(0, distance_text.length - 3);
-                        var calculodistancia=parseInt(distance_value)/1000;
-                        
-                        if (calculodistancia > limite) {
-                            document.getElementById("error").innerHTML = "Lo sentimos, no se encuentra en nuestra zona de delivery, igualmente puede realizar su pedido y nos comunicaremos con Usted";
-                            $('#error').removeClass('fade').addClass('show');
-                        }
-                        if (tipo == 'kilometro') {
-                            var calculocostodistancia = Math.round((parseInt(distance_value)/1000)*parseInt(cotizaciondelivery));
-                            document.getElementById('costrarcostodelivery').innerHTML=' '+calculocostodistancia+' ₲';
-                            var pagar = parseInt(calculocostodistancia)+parseInt(totalcostoproducto);
-                            document.getElementById('totalapagar').innerHTML=' '+pagar+' ₲';
-                            document.getElementById('costodelivery').innerHTML=' '+calculocostodistancia;
-                        }
-                        if (tipo == 'fijo') {
-                            var pagar = parseInt(cotizaciondelivery)+parseInt(totalcostoproducto);
-                            document.getElementById('totalapagar').innerHTML=' '+pagar+' ₲';
-                            document.getElementById('costodelivery').innerHTML=' '+cotizaciondelivery;
-                        }
-                    }
-                }
-            }
-            //dibujar en el mapa la trayectoria
-
-            var directionsService = new google.maps.DirectionsService;
-            var directionsRenderer = new google.maps.DirectionsRenderer;
-
-            var map = new google.maps.Map(document.getElementById('mapa'), {
-                zoom: 6,
-                center: {lat: 41.85, lng: -87.65}
-            });
-
-            directionsRenderer.setMap(map);
-
-            calculateAndDisplayRoute(directionsService, directionsRenderer, lat, lon, latitud, longitud);
-
-        }, function(objPositionError){
-            switch (objPositionError.code)
-            {
-                case objPositionError.PERMISSION_DENIED:
-                    alert("Negaste el acceso a tu ubicación, favor activa tu ubicación GPS");
-                break;
-                case objPositionError.POSITION_UNAVAILABLE:
-                    alert("No se ha podido acceder a la información de su posición.");
-                break;
-                case objPositionError.TIMEOUT:
-                    alert("El servicio ha tardado demasiado tiempo en responder, vuelve a intentarlo.");
-                break;
-                default:
-                    document.getElementById("error").innerHTML = "Error desconocido.";
-                    $('#error').removeClass('fade').addClass('show'); 
-            }
-        }, {
-            maximumAge: 75000,
-            timeout: 15000
-        });
-    }else{
-        document.getElementById("error").innerHTML = "Su navegador no soporta la API de geolocalización.";
-        $('#error').removeClass('fade').addClass('show'); 
+        // Actualizar el elemento HTML con el costo del delivery
+        var elementoDelivery = document.getElementById("costrarcostodelivery");
+        if (elementoDelivery) {
+            elementoDelivery.innerHTML = distanciaMultiplicada + " ₲";
+        }
+    function gradosARadianes(grados) {
+        return (grados * Math.PI) / 180;
     }
-
-   
-}
-
-function calculateAndDisplayRoute(directionsService, directionsRenderer, origen, destino, latitud, longitud) {
-    var waypts = [];
-
-    directionsService.route({
-      origin: new google.maps.LatLng(origen,destino),
-      destination: new google.maps.LatLng(latitud,longitud),
-      waypoints: waypts,
-      optimizeWaypoints: true,
-      travelMode: 'DRIVING'
-    }, function(response, status) {
-      if (status === 'OK') {
-        directionsRenderer.setDirections(response);
-        
-      } else {
-        window.alert('Directions request failed due to ' + status);
-      }
-    });
+    return distanciaMultiplicada;
 }

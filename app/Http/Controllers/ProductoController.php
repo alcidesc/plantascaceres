@@ -29,7 +29,7 @@ class ProductoController extends Controller
         $validated = $request->validate([
             'nombre' => 'required',
             'codigo' => 'required|unique:productos',
-            'precio1' => 'required',
+            'precio' => 'required',
             'precio2' => 'required',
             'precio3' => 'required',
             'stock' => 'required',
@@ -58,10 +58,10 @@ class ProductoController extends Controller
 
 		$producto->description=$request->get('description');
 		$producto->codigo=$request->get('codigo');
-		$producto->precio1 = intval(str_replace(".", "", $request->get('precio1')));
+		$producto->precio = intval(str_replace(".", "", $request->get('precio')));
         $producto->precio2 = intval(str_replace(".", "", $request->get('precio2')));
         $producto->precio3 = intval(str_replace(".", "", $request->get('precio3')));
-        $producto->iva = $request->get('iva');
+        $producto->iva = intval(str_replace(".", "", $request->get('iva')));
         $producto->stock=$request->get('stock');
         $producto->tipo=1;
 
@@ -135,9 +135,8 @@ class ProductoController extends Controller
 
         $producto->description=$request->get('description');
         $producto->codigo=$request->get('codigo');
-        $producto->precio1 = intval(str_replace(".", "", $request->get('precio1')));
+        $producto->precio = intval(str_replace(".", "", $request->get('precio')));
         $producto->precio2 = intval(str_replace(".", "", $request->get('precio2')));
-        $producto->precio3 = intval(str_replace(".", "", $request->get('precio3')));
         $producto->precio3 = intval(str_replace(".", "", $request->get('precio3')));
         $producto->iva = intval(str_replace(".", "", $request->get('iva')));
         $producto->stock=$request->get('stock');

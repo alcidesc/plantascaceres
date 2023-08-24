@@ -1,16 +1,15 @@
 @extends('adminlte::page')
 
 @section('title', 'Perfil de Empresa')
-	
-
+<head>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+</head>
 @section('content_header')
  <h1>Perfil de Empresa </h1><hr>
 @stop
 
 @section('content')
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-		integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-		crossorigin=""/>
+	
 	<div class="card">
         <div class="card-body">
             <div class="row">
@@ -233,38 +232,36 @@
 	        	@endif
 	        </div>
 	        <div class="row">
-				<div class="col-12"><hr>
-					<div class="col-12"><hr>
-						<style type="text/css">
-							#mapa{border:0px solid #999;height:250px; border-radius: 10px;}
-						</style>
-						<div id="mapa" class="shadow"></div>
-						<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-						<br><p align="center">Abrir en Google Maps <a href="https://maps.google.com/?q={{$empresa->latitud}},{{$empresa->longitud}}">Ver Instrucciones</a></p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="card-footer" align="center">
-			<a href="empresa/{{ $empresa->id }}/edit"><button type="button" class="btn btn-info"><i class="fas fa-save"></i> Editar Empresa</button></a>
-		</div>
-	</div>
+	        	<div class="col-12"><hr>
+                    <style type="text/css">
+                        #mapa{border:0px solid #999;height:250px; border-radius: 10px;}
+                    </style>
+                    <div id="mapa" class="shadow"></div>
+					<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+                    <br><p align="center">Abrir en Google Maps <a href="https://maps.google.com/?q={{$empresa->latitud}},{{$empresa->longitud}}">Ver Instrucciones</a></p>
+                </div>
+	        </div>
+    	</div>
+    	<div class="card-footer" align="center">
+            <a href="empresa/{{ $empresa->id }}/edit"><button type="button" class="btn btn-info"><i class="fas fa-save"></i> Editar Empresa</button></a>
+        </div>
+    </div>
 @stop
 
 @section('js')
-	<script> console.log('Hi!'); </script>
-	<!-- Mostrando mapa y calculando distancias y tiempos -->
-	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-	<script src="{{ asset('frontend/js/makermaps.js')}}" charset="utf-8"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHcQT0yBuaLXWdx6Mv_hAroOB0HLmNp5g&callback=Maps" async defer></script>
-	<script>
-		function Maps(){
-			let lat = {{$empresa->latitud}};
-			let lng = {{$empresa->longitud}};
-			let empresa = '{{$empresa->nombre}}';
-			let direccion = '{{$empresa->direccion}}';
-			initMap(lat,lng,empresa,direccion);
-		}        
-	</script>
-	<!-- Fin Mapas -->
+    <script> console.log('Hi!'); </script>
+    <!-- Mostrando mapa y calculando distancias y tiempos -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="{{ asset('frontend/js/makermaps.js')}}" charset="utf-8"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHcQT0yBuaLXWdx6Mv_hAroOB0HLmNp5g&callback=Maps" async defer></script>
+    <script>
+        function Maps(){
+            let lat = {{$empresa->latitud}};
+            let lng = {{$empresa->longitud}};
+            let empresa = '{{$empresa->nombre}}';
+            let direccion = '{{$empresa->direccion}}';
+            initMap(lat,lng,empresa,direccion);
+        }        
+    </script>
+    <!-- Fin Mapas -->
 @stop

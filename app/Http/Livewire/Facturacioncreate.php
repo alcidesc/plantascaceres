@@ -185,15 +185,15 @@ class Facturacioncreate extends Component{
         $this->prod_cargados[$producto->id]['descuento'] = 0;
         
         // Determine which price to use based on $precioSeleccionado
-        if ($this->precioSeleccionado === 'precio1') {
-            $this->prod_cargados[$producto->id]['precio'] = $producto->precio1;
+        if ($this->precioSeleccionado === 'precio') {
+            $this->prod_cargados[$producto->id]['precio'] = $producto->precio;
+        } elseif ($this->precioSeleccionado === 'precio') {
+            $this->prod_cargados[$producto->id]['precio2'] = $producto->precio2;
         } elseif ($this->precioSeleccionado === 'precio2') {
-            $this->prod_cargados[$producto->id]['precio'] = $producto->precio2;
-        } elseif ($this->precioSeleccionado === 'precio3') {
-            $this->prod_cargados[$producto->id]['precio'] = $producto->precio3;
+            $this->prod_cargados[$producto->id]['precio3'] = $producto->precio3;
         } else {
             // Default to regular price if no option is selected
-            $this->prod_cargados[$producto->id]['precio'] = $producto->precio1; // Use default price
+            $this->prod_cargados[$producto->id]['precio'] = $producto->precio; // Use default price
         }
     }
 

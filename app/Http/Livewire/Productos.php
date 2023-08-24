@@ -188,7 +188,7 @@ class Productos extends Component{
                 $producto->precio3 = $this->precio3;
                 $producto->stock = $this->stock;
                 $producto->oferta = $this->oferta;
-                $producto->iva = $request->get('iva');
+                $producto->iva = $this->iva;
                 if($nombre){
                     $producto->foto = $nombre;
                 }

@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>Vivero</b>',
+    'logo' => '<b>Vivero Plantas Caceres </b>',
     'logo_img' => '/imgsystem/logoicono.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
