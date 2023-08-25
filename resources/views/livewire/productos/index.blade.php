@@ -108,8 +108,31 @@
                                                             <input type="number" value="{{$pro->precio}}" class="form-control" readonly>
                                                         </div>
                                                     </div>
+                                                    @if($pro->precio2)
                                                     <div class="col-md-4"><br>
-                                                        <label>Precio de oferta:</label>
+                                                        <label>Precio de venta 2:</label>
+                                                        <div class="input-group mb-3">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i class="fas fa-money-bill-wave"></i></span>
+                                                            </div>
+                                                            <input type="number" value="{{$pro->precio2}}" class="form-control" readonly>
+                                                        </div>
+                                                    </div>
+                                                    @endif
+                                                    @if($pro->precio3)
+                                                    <div class="col-md-4"><br>
+                                                        <label>Precio de venta 3:</label>
+                                                        <div class="input-group mb-3">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i class="fas fa-money-bill-wave"></i></span>
+                                                            </div>
+                                                            <input type="number" value="{{$pro->precio3}}" class="form-control" readonly>
+                                                        </div>
+                                                    </div>
+                                                    @endif
+                                                    @if($pro->oferta)
+                                                    <div class="col-md-3"><br>
+                                                        <label>Precio oferta:</label>
                                                         <div class="input-group mb-3">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text"><i class="fas fa-money-bill-wave"></i></span>
@@ -117,6 +140,7 @@
                                                             <input type="number" value="{{$pro->oferta}}" class="form-control" readonly>
                                                         </div>
                                                     </div>
+                                                    @endif
                                                     <div class="col-md-4"><br>
                                                         <label>Stock disponible:</label>
                                                         <div class="input-group mb-3">

@@ -80,20 +80,21 @@ class Productos extends Component{
             }
         }
 
-        $producto=new Producto;
-            $producto->nombre = $this->nombre;
-            $producto->descripcion = $this->descripcion;
-            $producto->slug = $this->slug;
-            $producto->codigo = $this->codigo;
-            $producto->precio = $this->precio;
-            $producto->precio2 = $this->precio2;
-            $producto->precio3 = $this->precio3;
-            $producto->stock = $this->stock;
-            $producto->oferta = $this->oferta;
-            $producto->iva = $this->iva;
-            $producto->estado = 1;
-            $producto->foto = $nombre;
-            $producto->tipo = 1;
+        $producto = new Producto;
+        $producto->nombre = $this->nombre;
+        $producto->descripcion = $this->descripcion;
+        $producto->slug = $this->slug;
+        $producto->codigo = $this->codigo;
+        $producto->precio = intval(str_replace(".", "", $this->precio));
+        $producto->precio2 = intval(str_replace(".", "", $this->precio2));
+        $producto->precio3 = intval(str_replace(".", "", $this->precio3));
+        $producto->stock = $this->stock;
+        $producto->oferta = $this->oferta;
+        $producto->iva = intval(str_replace(".", "", $this->iva));
+        $producto->estado = 1;
+        $producto->foto = $nombre;
+        $producto->tipo = 1;
+        
         $producto->save();
 
         foreach($this->categorias_id as $cat){
@@ -115,26 +116,26 @@ class Productos extends Component{
     public function edit($id)
     {
         $this->updateMode = true;
-        $producto = Producto::where('id',$id)->first();
-        $categorias = CategoriaProducto::where('producto_id',$id)->select('categoria_id')->get();
+        $producto = Producto::where('id', $id)->first();
+        $categorias = CategoriaProducto::where('producto_id', $id)->select('categoria_id')->get();
         $this->nombre = $producto->nombre;
         $this->producto_id = $producto->id;
         $this->slug = $producto->slug;
         $this->codigo = $producto->codigo;
-        $this->precio = $producto->precio;
-        $this->precio2 = $producto->precio2;
-        $this->precio3 = $producto->precio3;
+        $this->precio = intval(str_replace(".", "", $producto->precio));
+        $this->precio2 = intval(str_replace(".", "", $producto->precio2));
+        $this->precio3 = intval(str_replace(".", "", $producto->precio3));
         $this->stock = $producto->stock;
         $this->oferta = $producto->oferta;
-        $this->iva = $producto->iva;
+        $this->iva = intval(str_replace(".", "", $producto->iva));
         $this->foto = $producto->foto;
         $this->emit('categorias_id', $categorias);
         $this->emit('descripcion', $producto->descripcion);
-
-        $this->collapsed="";
-        $this->collapsedicon="fa-minus";      
+    
+        $this->collapsed = "";
+        $this->collapsedicon = "fa-minus";      
     }
-
+    
     public function cancel()
     {
         $this->updateMode = false;
@@ -175,21 +176,22 @@ class Productos extends Component{
                 }
             }
 
-            $producto=Producto::find($this->producto_id);
+                $producto = Producto::find($this->producto_id);
                 $producto->nombre = $this->nombre;
                 $producto->descripcion = $this->descripcion;
                 $producto->slug = $this->slug;
                 $producto->codigo = $this->codigo;
-                $producto->descripcion=$this->descripcion;
-                $producto->precio = $this->precio;
-                $producto->precio2 = $this->precio2;
-                $producto->precio3 = $this->precio3;
+                $producto->descripcion = $this->descripcion;
+                $producto->precio = intval(str_replace(".", "", $this->precio));
+                $producto->precio2 = intval(str_replace(".", "", $this->precio2));
+                $producto->precio3 = intval(str_replace(".", "", $this->precio3));
                 $producto->stock = $this->stock;
                 $producto->oferta = $this->oferta;
-                $producto->iva = $this->iva;
-                if($nombre){
+                $producto->iva = intval(str_replace(".", "", $this->iva));
+                if ($nombre) {
                     $producto->foto = $nombre;
                 }
+
             $producto->save();
 
             $categorias=CategoriaProducto::where('producto_id',$this->producto_id)->get();
