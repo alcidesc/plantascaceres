@@ -27,7 +27,6 @@ class Productos extends Component{
 
         $productos = Producto::where('estado',1)->where('tipo',1)
             ->where('nombre','LIKE','%'.$this->search.'%')
-            ->orwhere('codigo','LIKE','%'.$this->search.'%')
             ->orderBy($this->fila,$this->orden)->paginate(20);
         $categorias = Categoria::where('estado',1)->get();
 
@@ -147,7 +146,6 @@ class Productos extends Component{
     public function update(){
         $validatedDate = $this->validate([
             'nombre' => 'required|unique:productos,nombre,'.$this->producto_id,
-            'descripcion' => 'required',
             'slug' => 'required|unique:productos,slug,'.$this->producto_id,
             'codigo' => 'required|unique:productos,codigo,'.$this->producto_id,
             'precio' => 'required',
@@ -218,13 +216,11 @@ class Productos extends Component{
         }
     }
 
-    public function delete($id){
-        if($id){
-            $categoria = Producto::find($id);
-            $categoria->estado=0;
-            $categoria->update();
-            $this->emit('alert', ['type' => 'success', 'error' => 'Categoria eliminada correctamente!']);
-        }
+    public function delete($producto_id){
+        $producto = Producto::find($producto_id);
+            $producto->estado=0;
+        $producto->update();
+        $this->emit('alert', ['type' => 'error', 'message' => 'Producto eliminado correctamente!']);
     }
 
     public function collapsed(){

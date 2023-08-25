@@ -90,7 +90,7 @@ class Categorias extends Component{
             $categoria = Categoria::find($id);
             $categoria->estado=0;
             $categoria->update();
-            $this->emit('alert', ['type' => 'success', 'error' => 'Categoria eliminada correctamente!']);
+            $this->emit('alert', ['type' => 'error', 'message' => 'Categoria eliminada correctamente!']);
         }
     }
 

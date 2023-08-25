@@ -13,11 +13,4 @@
 
 @stop
 
-@section('js')
-    <script> console.log('Hi!, {{Auth::user()->name}}'); </script>
-    <script>
-    	window.livewire.on('alert', param => {
-	        toastr[param['type']](param['message']);
-	    });
-    </script>
-@stop
+
