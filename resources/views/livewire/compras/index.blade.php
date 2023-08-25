@@ -166,13 +166,14 @@
 								<td>
 									<input type="number" class="form-control" value="{{$prod['cantidad']}}" wire:change="changecantidad($event.target.value,{{$prod['id']}})">
 								</td>
-								<td>
-								<input type="number" class="form-control" value="{{$prod['precio3']}}" wire:change="changeprecio($event.target.value,{{$prod['id']}})">
-								</td>
-								<td>{{$prod['precio3']*$prod['cantidad']}}</td>
+								<td>{{$prod['precio']}}</td>
+								{{-- <td>
+								<input type="number" class="form-control" value="{{$prod['precio']}}" wire:change="changeprecio($event.target.value,{{$prod['id']}})">
+								</td> --}}
+								<td>{{$prod['precio']*$prod['cantidad']}}</td>
 								<td><button class="btn btn-danger" wire:click="deleteitem({{$prod['id']}})"><i class="far fa-trash-alt"></i></button></td>
 							</tr>
-							@php $total+=$prod['precio3']*$prod['cantidad']; @endphp
+							@php $total+=$prod['precio']*$prod['cantidad']; @endphp
 						@endforeach
                     </tbody>
                 </table><hr>

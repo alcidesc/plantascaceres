@@ -83,7 +83,7 @@ class Compras extends Component{
                 $producto = new Compraproductos;
                 $producto->producto_id = $prod['id'];
                 $producto->cantidad = $prod['cantidad'];
-                $producto->precio = $prod['precio3'];
+                $producto->precio = $prod['precio'];
                 $producto->cabecera_id = $cabecera->id;
                 
                 // Agregar los nuevos campos al producto
@@ -144,9 +144,9 @@ class Compras extends Component{
             $this->prod_cargados[$producto->id]['cantidad'] = 1;
             
             if ($producto->oferta) {
-                $this->prod_cargados[$producto->id]['precio3'] = $producto->oferta;
+                $this->prod_cargados[$producto->id]['precio'] = $producto->oferta;
             } else {
-                $this->prod_cargados[$producto->id]['precio3'] = $producto->precio3;
+                $this->prod_cargados[$producto->id]['precio'] = $producto->precio3;
             }
     
             // Agregar los nuevos campos
