@@ -34,18 +34,17 @@ class ComprarController extends Controller{
         if ($cabecera->save()) {
         	$productos = $request->get('producto_id');
 
-            for ($i=0; $i < count($productos); $i++) {
+            foreach (Cart::getContent() as $carrito) {
         		$pedido=new Pedido;
-
-        		$pedido->cabecera_id=$cabecera->id;
-                $porciones = explode("id", $request->get('producto_id')[$i]);
-        		$pedido->producto_id=$porciones[1];
-        		$pedido->cantidad=$request->get('cantidad')[$i];
-        		$pedido->precio=$request->get('precio')[$i];
+                    $pedido->cabecera_id=$cabecera->id;
+                    $pedido->producto_id=$carrito->id;
+                    $pedido->cantidad=$carrito->quantity;
+                    $pedido->precio=$carrito->price;
 
         		$pedido->save();
+                
                 Cart::remove([
-                    'id' => $request->get('producto_id')[$i],
+                    'id' => $carrito->id,
                 ]);
         	}
         }
