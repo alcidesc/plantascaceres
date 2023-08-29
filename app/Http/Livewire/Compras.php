@@ -146,7 +146,7 @@ class Compras extends Component{
             if ($producto->oferta) {
                 $this->prod_cargados[$producto->id]['precio'] = $producto->oferta;
             } else {
-                $this->prod_cargados[$producto->id]['precio'] = $producto->precio3;
+                $this->prod_cargados[$producto->id]['precio'] = $producto->precio;
             }
     
             // Agregar los nuevos campos

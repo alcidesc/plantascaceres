@@ -17,7 +17,7 @@ class CategoriaProducto extends Model{
 
     protected $fillable=[
     	'categoria_id',
-		  'producto_id',
+		'producto_id',
     ];
 
 }

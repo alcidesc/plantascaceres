@@ -49,69 +49,65 @@ class Productos extends Component{
         $this->categorias_id = '';
     }
 
-    public function store(){
-        $validatedDate = $this->validate([
-            'nombre' => ['required','unique:productos'],
-            'slug' => ['required','unique:productos'],
-            'codigo' => ['required','unique:productos'],
-            'precio' => 'required',
-            'stock' => 'required',
-            'categorias_id' => 'required',
-        ],
-        [
-            'nombre.unique' => 'El nombre de producto ya esta en uso',
-            'slug.unique' => 'El enlace ya esta en uso',
-            'codigo.unique' => 'El código ya esta en uso',
-        ]);
+   public function store()
+{
+    $validatedData = $this->validate([
+        'nombre' => ['required', 'unique:productos'],
+        'slug' => ['required', 'unique:productos'],
+        'codigo' => ['required', 'unique:productos'],
+        'precio' => 'required',
+        'stock' => 'required',
+        'categorias_id' => 'required',
+    ],
+    [
+        'nombre.unique' => 'El nombre de producto ya está en uso',
+        'slug.unique' => 'El enlace ya está en uso',
+        'codigo.unique' => 'El código ya está en uso',
+    ]);
 
-        $nombre='';
-        if($file = $this->foto) {
-            $control=0;
-            $nombre = rand().".".$file->getClientOriginalExtension();
-            while ($control == 0) {
-                if (is_file( public_path() . '/images/productos/' . $nombre )) {
-                    $nombre = rand() . $nombre;
-                }else{
-                    Image::make($this->foto)
-                        ->heighten(1000)
-                        ->save(public_path() . '/images/productos/' . $nombre);
-                    $control=1;
-                }
+    $nombreFoto = '';
+    if ($file = $this->foto) {
+        $control = 0;
+        $nombreFoto = rand() . "." . $file->getClientOriginalExtension();
+        while ($control == 0) {
+            if (is_file(public_path() . '/images/productos/' . $nombreFoto)) {
+                $nombreFoto = rand() . $nombreFoto;
+            } else {
+                Image::make($this->foto)
+                    ->heighten(1000)
+                    ->save(public_path() . '/images/productos/' . $nombreFoto);
+                $control = 1;
             }
         }
-
-        $producto = new Producto;
-        $producto->nombre = $this->nombre;
-        $producto->descripcion = $this->descripcion;
-        $producto->slug = $this->slug;
-        $producto->codigo = $this->codigo;
-        $producto->precio = intval(str_replace(".", "", $this->precio));
-        $producto->precio2 = intval(str_replace(".", "", $this->precio2));
-        $producto->precio3 = intval(str_replace(".", "", $this->precio3));
-        $producto->stock = $this->stock;
-        $producto->oferta = $this->oferta;
-        $producto->iva = intval(str_replace(".", "", $this->iva));
-        $producto->estado = 1;
-        $producto->foto = $nombre;
-        $producto->tipo = 1;
-        
-        $producto->save();
-
-        foreach($this->categorias_id as $cat){
-            CategoriaProducto::create([
-                'categoria_id' => $cat,
-		        'producto_id' => $producto->id,
-            ]);
-        }
-
-        $this->emit('alert', ['type' => 'success', 'message' => 'Producto agregado correctamente!']);
-        $this->emit('categorias_id', '');
-        $this->emit('descripcion', '');
-        $this->resetInputFields();
-        $this->collapsed="collapsed-card";
-        $this->collapsedicon="fa-plus";
-
     }
+
+    $producto = new Producto;
+    $producto->nombre = $this->nombre;
+    $producto->descripcion = $this->descripcion;
+    $producto->slug = $this->slug;
+    $producto->codigo = $this->codigo;
+    $producto->precio = intval(str_replace(".", "", $this->precio));
+    $producto->precio2 = intval(str_replace(".", "", $this->precio2));
+    $producto->precio3 = intval(str_replace(".", "", $this->precio3));
+    $producto->stock = $this->stock;
+    $producto->oferta = $this->oferta;
+    $producto->iva = intval(str_replace(".", "", $this->iva));
+    $producto->estado = 1;
+    $producto->foto = $nombreFoto;
+    $producto->tipo = 1;
+    $producto->save();
+
+    // Crear el producto y guardar sus categorías relacionadas
+    $producto->categorias()->sync($this->categorias_id);
+
+    $this->emit('alert', ['type' => 'success', 'message' => '¡Producto agregado correctamente!']);
+    $this->emit('categorias_id', '');
+    $this->emit('descripcion', '');
+    $this->resetInputFields();
+    $this->collapsed = "collapsed-card";
+    $this->collapsedicon = "fa-plus";
+}
+
 
     public function edit($id)
     {
