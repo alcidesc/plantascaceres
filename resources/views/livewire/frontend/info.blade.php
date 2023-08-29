@@ -1,18 +1,18 @@
 <div>
 	<header>
 		<div class="container">
-			<div class="header-bottom-agileits">
-				<div class="w3-logo">
-					<h1><a href="{{ url('/')}}"><img src="/images/empresa/{{ $empresa->logo }}" width="100px"></a></h1>
+			<div class="row" style="padding-top: 10px;">
+				<div class="col-md-4">
+					<h1><a href="{{ url('/')}}"><img src="/images/empresa/{{ $empresa->logo }}" width="300px"></a></h1>
 				</div>
-				<div class="address">
-					<p>{{ $empresa->direccion }}</p>
+				<div class="col-md-4" align="center">
+					<br><p>{{ $empresa->direccion }}</p>
 					
 					<p class="para-y"><a href="https://maps.google.com/?q={{$empresa->latitud}},{{$empresa->longitud}}">Ver en Maps</a></p>
 				</div>
-				<div class="nav-contact-w3ls">
-					<a href="https://wa.me/{{ $empresa->whatsapp }}"><p>{{ $empresa->whatsapp }}<span class="fa fa-whatsapp" aria-hidden="true"></span></p></a>
-					<p class="para-y"><a href="tel:{{ $empresa->telefono1 }}">{{ $empresa->telefono1 }}</a><span class="fa fa-phone" aria-hidden="true"></span></p>
+				<div class="col-md-4" align="right">
+					<br><a href="https://wa.me/{{ $empresa->whatsapp }}"><p><i class="bi bi-whatsapp">{{ $empresa->whatsapp }}</i> </p></a>
+					<p class="para-y"><a href="tel:{{ $empresa->telefono1 }}"><i class="bi bi-phone"></i> {{ $empresa->telefono1 }}</a></p>
 				</div>
 				<div class="clearfix"></div>
 			</div>
