@@ -17,19 +17,20 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Proveedores</th>
+                        <th>RUC</th>
                         <th>Contacto</th>
+                        <th>Dirección</th>
                         <th>Acciones</th>
-
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($proveedores as $prov)
                         <tr>
-                            <td>{{ $prov->id }}</td>
                             <td>{{ $prov->nombre }}</td>
-                            <td>{{ $prov->contacto }}</td>
+                            <td>{{ $prov->ruc }}</td>
+                            <td><a href="tel:{{ $prov->contacto }}">{{ $prov->contacto }}</a></td>
+                            <td>{{ $prov->direccion }}</td>
                             <td>
                                 <button wire:click="edit({{ $prov->id }})" class="btn btn-sm btn-info">Editar</button>
                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal{{ $prov->id }}"><i class="far fa-trash-alt"></i></button>

@@ -101,11 +101,11 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <div class="form-group" wire:ignore>
+                        <div class="form-group">
                             <label for="informacion">Seleccione Categorias</label><br>
                             <ul>
-                                @foreach($categorias as $value)
-                                    <li>{{ $value->nombre }}</li>
+                                @foreach($listcategorias as $category)
+                                    <li>{{ $category->nombre }}</li>
                                 @endforeach
                             </ul>  
                         </div>

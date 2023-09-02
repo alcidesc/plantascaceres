@@ -46,7 +46,7 @@
                             </td>
                             <td>{{ $pro->stock }}</td>
                             <td>
-                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#viewModal{{ $pro->id }}"><i class="far fa-eye"></i></button>
+                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" wire:click="$set('producto_id', {{ $pro->id }})" data-target="#viewModal{{ $pro->id }}"><i class="far fa-eye"></i></button>
                                 <!-- Modal view-->
                                 @include('livewire.productos.modal.modalwievproducto')
                                 <button wire:click="edit({{ $pro->id }})" class="btn btn-sm btn-info"><i class="far fa-edit"></i></button>
@@ -132,6 +132,37 @@
                     $('#categorias_id').val(null).trigger('change');
                 }
             });
+
+            // Separador de miles
+            function formatNumber(n) {
+                n = String(n).replace(/\D/g, ""); // Eliminar caracteres no numéricos
+                return n === '' ? n : n.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            }
+            $(".number").keyup(function(e){
+                const element = e.target;
+                const value = element.value;
+                var Myelement = document.getElementById(element.id);
+                var parse = formatNumber(value);
+                Myelement.value = parse;
+                @this.set(element.id, parse);
+            });
+
+            Livewire.on('precio', precio => {
+                $('#precio').val(precio);
+            });
+            Livewire.on('precio2', precio2 => {
+                $('#precio2').val(precio2);
+            });
+            Livewire.on('precio3', precio3 => {
+                $('#precio3').val(precio3);
+            });
+            Livewire.on('oferta', oferta => {
+                $('#oferta').val(oferta);
+            });
+            Livewire.on('stock', stock => {
+                $('#stock').val(stock);
+            });
+            
         </script>
     @stop
 </div>

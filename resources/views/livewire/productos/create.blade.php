@@ -95,7 +95,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-money-bill-wave"></i></span>
                         </div>
-                        <input type="number" wire:model="precio" class="form-control @error('precio') is-invalid @enderror" placeholder="Precio de venta" step="any" required>
+                        <input type="text" wire:ignore id="precio" class="number form-control @error('precio') is-invalid @enderror" placeholder="Precio de venta" step="any" required>
                         @error('precio')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -109,7 +109,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-money-bill-wave"></i></span>
                         </div>
-                        <input type="number" wire:model="precio2" class="form-control @error('precio2') is-invalid @enderror" placeholder="Precio de venta" required>
+                        <input type="text" wire:ignore id="precio2" class="number form-control @error('precio2') is-invalid @enderror" placeholder="Precio de venta" required>
                         @error('precio2')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -123,7 +123,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-money-bill-wave"></i></span>
                         </div>
-                        <input type="number" wire:model="precio3" class="form-control @error('precio3') is-invalid @enderror" placeholder="Precio de venta" required>
+                        <input type="text" wire:ignore id="precio3" class="number form-control @error('precio3') is-invalid @enderror" placeholder="Precio de venta" required>
                         @error('precio3')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -137,7 +137,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-money-bill-wave"></i></span>
                         </div>
-                        <input type="number" wire:model="oferta" class="form-control @error('oferta') is-invalid @enderror" placeholder="Precio de oferta" >
+                        <input type="text" wire:ignore id="oferta" class="number form-control @error('oferta') is-invalid @enderror" placeholder="Precio de oferta" >
                         @error('oferta')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -151,7 +151,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-layer-group"></i></span>
                         </div>
-                        <input type="number" wire:model="stock" class="form-control @error('stock') is-invalid @enderror" placeholder="Stock disponible" min="1" required>
+                        <input type="number" wire:ignore id="stock" class="number form-control @error('stock') is-invalid @enderror" placeholder="Stock disponible" min="1" required>
                         @error('stock')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

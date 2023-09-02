@@ -9,6 +9,7 @@ use App\Models\Categoria;
 use App\Models\CategoriaProducto;
 use Livewire\WithFileUploads;
 use Image, file;
+use DB;
 
 class Productos extends Component{
 
@@ -29,8 +30,16 @@ class Productos extends Component{
             ->where('nombre','LIKE','%'.$this->search.'%')
             ->orderBy($this->fila,$this->orden)->paginate(15);
         $categorias = Categoria::where('estado',1)->get();
+        $listcategorias = DB::table('categoria_productos as cp')
+            ->join('categorias as c','cp.categoria_id','c.id')
+            ->select('c.*')
+            ->where('cp.producto_id', $this->producto_id)->where('c.estado',1)->get();
 
-        return view('livewire.productos.index',['productos'=>$productos,'categorias'=>$categorias]);
+        return view('livewire.productos.index',[
+            'productos'=>$productos,
+            'categorias'=>$categorias,
+            'listcategorias'=>$listcategorias
+        ]);
     }
 
     private function resetInputFields(){
@@ -41,10 +50,15 @@ class Productos extends Component{
         $this->slug = '';
         $this->codigo = '';
         $this->precio = '';
+        $this->emit('precio','');
         $this->precio2 = '';
+        $this->emit('precio2','');
         $this->precio3 = '';
+        $this->emit('precio3','');
         $this->stock = '';
+        $this->emit('stock','');
         $this->oferta = '';
+        $this->emit('oferta','');
         $this->iva = '';
         $this->foto = '';
         $this->categorias_id = '';
@@ -100,7 +114,12 @@ class Productos extends Component{
     $producto->save();
 
     // Crear el producto y guardar sus categorías relacionadas
-    $producto->categorias()->sync($this->categorias_id);
+    foreach($this->categorias_id as $cat){
+        CategoriaProducto::create([
+            'categoria_id' => $cat,
+            'producto_id' => $producto->id,
+        ]);
+    }
 
     $this->emit('alert', ['type' => 'success', 'message' => '¡Producto agregado correctamente!']);
     $this->resetInputFields();
@@ -118,14 +137,20 @@ class Productos extends Component{
         $this->producto_id = $producto->id;
         $this->slug = $producto->slug;
         $this->codigo = $producto->codigo;
-        $this->precio = intval(str_replace(".", "", $producto->precio));
-        $this->precio2 = intval(str_replace(".", "", $producto->precio2));
-        $this->precio3 = intval(str_replace(".", "", $producto->precio3));
+        $this->precio = $producto->precio;
+        $this->emit('precio', intval(str_replace(".", "", $producto->precio)));
+        $this->precio2 = $producto->precio2;
+        $this->emit('precio2', intval(str_replace(".", "", $producto->precio2)));
+        $this->precio3 = $producto->precio3;
+        $this->emit('precio3', intval(str_replace(".", "", $producto->precio3)));
         $this->stock = $producto->stock;
+        $this->emit('stock', intval(str_replace(".", "", $producto->stock)));
         $this->oferta = $producto->oferta;
-        $this->iva = intval(str_replace(".", "", $producto->iva));
+        $this->emit('oferta', intval(str_replace(".", "", $producto->oferta)));
+        $this->iva = $producto->iva;
         $this->foto = $producto->foto;
         $this->emit('categorias_id', $categorias);
+        $this->descripcion = $producto->descripcion;
         $this->emit('descripcion', $producto->descripcion);
     
         $this->collapsed = "";

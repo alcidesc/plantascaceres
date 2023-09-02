@@ -10,13 +10,13 @@ class Proveedores extends Component{
 
     use WithPagination;
 
+    protected $queryString = ['search' => ['except' => '']];
     protected $paginationTheme = 'bootstrap';
-    
     public $search='';
+    public $collapsed="collapsed-card",$collapsedicon="fa-plus";
+    public $updateMode = false,$fila="id",$orden="desc";
     
     public $nombre, $proveedor_id, $direccion, $ruc, $contacto;
-    
-    public $updateMode = false;
     
     public function render(){
 
@@ -31,6 +31,8 @@ class Proveedores extends Component{
         $this->ruc = '';
         $this->contacto = '';
         $this->direccion = '';
+        $this->collapsed="collapsed-card";
+        $this->collapsedicon="fa-plus";
     }
 
     public function store()
@@ -62,13 +64,16 @@ class Proveedores extends Component{
         $this->ruc = $proveedor->ruc;
         $this->contacto = $proveedor->contacto;
         $this->direccion = $proveedor->direccion;
-
+        $this->collapsed = "";
+        $this->collapsedicon = "fa-minus";   
     }
 
     public function cancel()
     {
         $this->updateMode = false;
         $this->resetInputFields();
+        $this->collapsed="collapsed-card";
+        $this->collapsedicon="fa-plus";
     }
 
     public function update()
@@ -100,6 +105,16 @@ class Proveedores extends Component{
             $proveedor->estado=0;
             $proveedor->update();
             $this->emit('alert', ['type' => 'error', 'message' => 'Proveedor eliminado correctamente!']);
+        }
+    }
+
+    public function collapsed(){
+        if($this->collapsed){
+            $this->collapsed="";
+            $this->collapsedicon="fa-minus";
+        }else{
+            $this->collapsed="collapsed-card";
+            $this->collapsedicon="fa-plus";
         }
     }
 }

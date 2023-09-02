@@ -18,7 +18,6 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Categorias</th>
                         <th>Observaciones</th>
                         <th>Acciones</th>
@@ -29,7 +28,6 @@
 
                     @foreach ($categorias as $cat)
                         <tr>
-                            <td>{{ $cat->id }}</td>
                             <td>{{ $cat->nombre }}</td>
                             <td>{{ $cat->observacion }}</td>
                             <td>

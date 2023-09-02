@@ -22,7 +22,8 @@ class CatGastos extends Component{
     
     public function render(){
 
-        $categorias = CategoriaGastos::where('estado',1)->where('nombre','LIKE','%'.$this->search.'%')->paginate(20);
+        $categorias = CategoriaGastos::where('estado',1)->where('nombre','LIKE','%'.$this->search.'%')
+            ->orderBy('id','desc')->paginate(20);
         
         return view('livewire.categoriagastos.index',["categorias"=>$categorias]);
 
