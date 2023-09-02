@@ -33,7 +33,7 @@
                             <td>{{ $cat->nombre }}</td>
                             <td>{{ $cat->observacion }}</td>
                             <td>
-                            <a href="{{URL('/admin/gastos')}}?id={{ $cat->id }}"><button  class="btn btn-sm btn-success">Cargar gasto</button>
+                            <a href="{{URL('/admin/categoriagastos/'.$cat->id)}}"><button  class="btn btn-sm btn-success">Cargar gasto</button>
                             </a>
                             <button wire:click="edit({{ $cat->id }})" class="btn btn-sm btn-info">Editar</button>
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal{{ $cat->id }}"><i class="far fa-trash-alt"></i></button>

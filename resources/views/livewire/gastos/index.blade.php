@@ -1,5 +1,8 @@
 <div>
     <div class="row">
+        <div class="col-md-12">
+            <h3><b>Categoria: </b> {{$categoriaGasto->nombre}}</h3>
+        </div>
         <div class="col-md-12"> 
             @if($updateMode)
                 @include('livewire.gastos.update')
@@ -34,7 +37,7 @@
                         <tr>
                             <td>{{ $cat->id }}</td>
                             <td>{{ $cat->nombre }}</td>
-                            <td>{{ $cat->costo }}</td>
+                            <td>{{number_format($cat->costo, 0, '', '.') }}</td>
                             <td>{{ $cat->created_at }}</td>
                             <td>
                             
@@ -69,7 +72,7 @@
                     @endforeach
                     <tr>
                         <td colspan="2"><b>Total</b></td>
-                        <td colspan="2">{{ $total }} Gs.</td>
+                        <td colspan="3">{{number_format($total, 0, '', '.') }} Gs.</td>
                     </tr>
                 </tbody>
             </table>

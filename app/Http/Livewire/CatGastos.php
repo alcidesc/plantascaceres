@@ -10,11 +10,13 @@ class CatGastos extends Component{
    
     use WithPagination;
 
+    protected $queryString = ['search' => ['except' => '']];
+
     protected $paginationTheme = 'bootstrap';
     
     public $search='';
     
-    public $nombre, $categoria_id, $observacion;
+    public $nombre, $categoria_id, $observacion,$collapsed="collapsed-card",$collapsedicon="fa-plus";
     
     public $updateMode = false;
     
@@ -57,13 +59,17 @@ class CatGastos extends Component{
         $this->nombre = $categoria->nombre;
         $this->categoria_id = $categoria->id;    
         $this->observacion = $categoria->observacion; 
- 
+        
+        $this->collapsed="";
+        $this->collapsedicon="fa-minus"; 
     }
 
     public function cancel()
     {
         $this->updateMode = false;
         $this->resetInputFields();
+        $this->collapsed="collapsed-card";
+        $this->collapsedicon="fa-plus";
     }
 
     public function update()
@@ -93,6 +99,16 @@ class CatGastos extends Component{
             $categoria->estado=0;
             $categoria->update();
             $this->emit('alert', ['type' => 'error', 'message' => 'Categoria eliminada correctamente!']);
+        }
+    }
+
+    public function collapsed(){
+        if($this->collapsed){
+            $this->collapsed="";
+            $this->collapsedicon="fa-minus";
+        }else{
+            $this->collapsed="collapsed-card";
+            $this->collapsedicon="fa-plus";
         }
     }
 }

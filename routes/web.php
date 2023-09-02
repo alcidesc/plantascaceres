@@ -61,8 +61,8 @@ Route::get('/admin/fecha-extraccion', function () {
     return view('admin.fecha-extraccion.index');
 })->middleware('auth');
 
-Route::get('/admin/gastos', function () {
-    return view('admin.gastos.index');
+Route::get('/admin/categoriagastos/{id}', function ($id) {
+    return view('admin.gastos.index',["categoriaGastoId"=>$id]);
 })->middleware('auth');
 
 Route::get('/admin/infoproductos', function () {
@@ -90,7 +90,7 @@ Route::get('/', function () {
     $texto = preg_replace ('/<[^>]*>/', ' ', $empresa->info);
     SEO::setTitle('► '.$empresa->nombre);
     SEO::setDescription(substr($texto, 0, 300));
-    OpenGraph::addImage('https://www.losmellis.net/images/empresa/'.$empresa->logo, ['height' => 300, 'width' => 300]);
+    OpenGraph::addImage('https://www.plantascaceres.com/images/empresa/'.$empresa->logo, ['height' => 300, 'width' => 300]);
 
     return view('index');
 });
@@ -99,15 +99,15 @@ Route::get('/product/{slug}', function ($slug) {
     $texto = preg_replace ('/<[^>]*>/', ' ', $producto->descripcion);
     SEO::setTitle('► '.$producto->nombre);
     SEO::setDescription(substr($texto, 0, 300));
-    SEOMeta::setCanonical('https://www.losmellis.net/product/'.$producto->slug);
-    SEOTools::opengraph()->addProperty('product:brand', 'Los Mellis');
+    SEOMeta::setCanonical('https://www.plantascaceres.com/product/'.$producto->slug);
+    SEOTools::opengraph()->addProperty('product:brand', 'Plantas Caceres');
     SEOTools::opengraph()->addProperty('product:condition', 'new');
     SEOTools::opengraph()->addProperty('product:availability', 'in stock');
     SEOTools::opengraph()->addProperty('product:item_group_id', $producto->id);
     SEOTools::opengraph()->addProperty('product:price:amount', $producto->precio);
     SEOTools::opengraph()->addProperty('product:price:currency', 'PYG');
     SEOTools::opengraph()->addProperty('product:retailer_item_id', $producto->slug);
-    OpenGraph::addImage('https://www.losmellis.net/images/productos/'.$producto->foto, ['height' => 300, 'width' => 300]);
+    OpenGraph::addImage('https://www.plantascaceres.com/images/productos/'.$producto->foto, ['height' => 300, 'width' => 300]);
 
     return view('frontend.view',["slug"=>$slug]);
 });
@@ -116,7 +116,7 @@ Route::get('/quienessomos', function () {
     $texto = preg_replace ('/<[^>]*>/', ' ', $empresa->info);
     SEO::setTitle('► Quienes Somos');
     SEO::setDescription(substr($texto, 0, 300));
-    OpenGraph::addImage('https://www.losmellis.net/images/empresa/'.$empresa->logo, ['height' => 300, 'width' => 300]);
+    OpenGraph::addImage('https://www.plantascaceres.com/images/empresa/'.$empresa->logo, ['height' => 300, 'width' => 300]);
 
     return view('frontend.acerca');
 });
@@ -125,7 +125,7 @@ Route::get('/productos', function () {
     $texto = preg_replace ('/<[^>]*>/', ' ', $empresa->info);
     SEO::setTitle('► Productos');
     SEO::setDescription(substr($texto, 0, 300));
-    OpenGraph::addImage('https://www.losmellis.net/images/empresa/'.$empresa->logo, ['height' => 300, 'width' => 300]);
+    OpenGraph::addImage('https://www.plantascaceres.com/images/empresa/'.$empresa->logo, ['height' => 300, 'width' => 300]);
 
     return view('frontend.productos');
 });
@@ -144,7 +144,7 @@ Route::get('/verproductos', function () {
     $texto = preg_replace ('/<[^>]*>/', ' ', $empresa->info);
     SEO::setTitle('► Productos');
     SEO::setDescription(substr($texto, 0, 300));
-    OpenGraph::addImage('https://www.losmellis.net/images/empresa/'.$empresa->logo, ['height' => 300, 'width' => 300]);
+    OpenGraph::addImage('https://www.plantascaceres.com/images/empresa/'.$empresa->logo, ['height' => 300, 'width' => 300]);
 
     return view('frontend.verproductos');
 });

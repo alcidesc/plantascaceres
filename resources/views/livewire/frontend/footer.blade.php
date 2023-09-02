@@ -109,7 +109,6 @@
 						<ul>
 							<li><a href="{{ url('/quienessomos') }}">Quienes Somos</a></li>
 							<li><a href="{{ url('/productos') }}">Productos</a></li>
-							<li><a href="{{ url('/servicios') }}">Servicios</a></li>
 							<li><a href="{{ url('/contacto') }}">Contacto</a></li>
 						</ul>
 					</div>

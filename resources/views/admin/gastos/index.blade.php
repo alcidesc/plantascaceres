@@ -8,7 +8,7 @@
 
 @section('content')
 
-    @livewire('add-gasto', ['categoria_id' => 1])
+    @livewire('add-gasto', ['categoria_id' => $categoriaGastoId])
 
 @stop
 

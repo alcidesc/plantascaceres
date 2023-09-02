@@ -291,7 +291,8 @@ return [
         [
             'text'        => 'Gastos',
             'url'         => 'admin/categoriagastos',
-            'icon'        => 'fas fa-file-invoice-dollar'
+            'icon'        => 'fas fa-file-invoice-dollar',
+            'active'      => ['admin/categoriagastos', 'admin/categoriagastos*', 'regex:@^content/[0-9]+$@'],
 
         ],
         [

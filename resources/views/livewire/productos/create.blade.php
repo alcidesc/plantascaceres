@@ -95,7 +95,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-money-bill-wave"></i></span>
                         </div>
-                        <input type="number" wire:model="precio" class="form-control @error('precio') is-invalid @enderror" placeholder="Precio de venta" required>
+                        <input type="number" wire:model="precio" class="form-control @error('precio') is-invalid @enderror" placeholder="Precio de venta" step="any" required>
                         @error('precio')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

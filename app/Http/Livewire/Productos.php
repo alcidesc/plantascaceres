@@ -27,7 +27,7 @@ class Productos extends Component{
 
         $productos = Producto::where('estado',1)->where('tipo',1)
             ->where('nombre','LIKE','%'.$this->search.'%')
-            ->orderBy($this->fila,$this->orden)->paginate(20);
+            ->orderBy($this->fila,$this->orden)->paginate(15);
         $categorias = Categoria::where('estado',1)->get();
 
         return view('livewire.productos.index',['productos'=>$productos,'categorias'=>$categorias]);
@@ -37,6 +37,7 @@ class Productos extends Component{
         $this->nombre = '';
         $this->producto_id = '';
         $this->descripcion = '';
+        $this->emit('descripcion','');
         $this->slug = '';
         $this->codigo = '';
         $this->precio = '';
@@ -47,6 +48,7 @@ class Productos extends Component{
         $this->iva = '';
         $this->foto = '';
         $this->categorias_id = '';
+        $this->emit('categorias_id','');
     }
 
    public function store()
@@ -90,8 +92,8 @@ class Productos extends Component{
     $producto->precio2 = intval(str_replace(".", "", $this->precio2));
     $producto->precio3 = intval(str_replace(".", "", $this->precio3));
     $producto->stock = $this->stock;
-    $producto->oferta = $this->oferta;
-    $producto->iva = intval(str_replace(".", "", $this->iva));
+    $producto->oferta = intval(str_replace(".", "", $this->oferta));
+    $producto->iva = intval($this->iva);
     $producto->estado = 1;
     $producto->foto = $nombreFoto;
     $producto->tipo = 1;
@@ -101,8 +103,6 @@ class Productos extends Component{
     $producto->categorias()->sync($this->categorias_id);
 
     $this->emit('alert', ['type' => 'success', 'message' => '¡Producto agregado correctamente!']);
-    $this->emit('categorias_id', '');
-    $this->emit('descripcion', '');
     $this->resetInputFields();
     $this->collapsed = "collapsed-card";
     $this->collapsedicon = "fa-plus";
@@ -205,8 +205,6 @@ class Productos extends Component{
             }
 
             $this->emit('alert', ['type' => 'success', 'message' => 'Producto editado correctamente!']);
-            $this->emit('categorias_id', '');
-            $this->emit('descripcion', '');
             $this->resetInputFields();
             $this->collapsed="collapsed-card";
             $this->collapsedicon="fa-plus";

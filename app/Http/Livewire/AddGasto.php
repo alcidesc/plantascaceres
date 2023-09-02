@@ -5,24 +5,32 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Gastos;
+use App\Models\CategoriaGastos;
 
 class AddGasto extends Component
 {   
     use WithPagination;
 
+    protected $queryString = ['search' => ['except' => '']];
+
     protected $paginationTheme = 'bootstrap';
     
     public $search='';
     
-    public $nombre, $costos_id, $costo, $categoria_id;
+    public $nombre, $costos_id, $costo, $categoria_id,$collapsed="collapsed-card",$collapsedicon="fa-plus";
     
     public $updateMode = false;
     
     public function render(){
 
+        $categoriaGasto=CategoriaGastos::find($this->categoria_id);
+
         $costos = Gastos::where('gastocategoria_id',$this->categoria_id)->where('nombre','LIKE','%'.$this->search.'%')->paginate(20);
         
-        return view('livewire.gastos.index',["costos"=>$costos]);
+        return view('livewire.gastos.index',[
+            "costos"=>$costos,
+            "categoriaGasto"=>$categoriaGasto
+        ]);
 
     }
     
@@ -51,12 +59,14 @@ class AddGasto extends Component
         $this->resetInputFields();
 
     }
-    public function edit($id)
-    {
+    public function edit($id){
+        
         $this->updateMode = true;
-        $gastos = Gastos::where('id',$id)->first();
+        $gastos = Gastos::find($id);
         $this->nombre = $gastos->nombre;
-        $this->costo = $gastos->costo;    
+        $this->costo = $gastos->costo; 
+        $this->collapsed="";
+        $this->collapsedicon="fa-minus";     
  
     }
 
@@ -64,6 +74,8 @@ class AddGasto extends Component
     {
         $this->updateMode = false;
         $this->resetInputFields();
+        $this->collapsed="collapsed-card";
+        $this->collapsedicon="fa-plus";
     }
 
     public function update()
@@ -93,6 +105,16 @@ class AddGasto extends Component
             $costos = Gastos::find($id);
             $costos->delete();
             $this->emit('alert', ['type' => 'error', 'message' => 'Gasto eliminado correctamente!']);
+        }
+    }
+
+    public function collapsed(){
+        if($this->collapsed){
+            $this->collapsed="";
+            $this->collapsedicon="fa-minus";
+        }else{
+            $this->collapsed="collapsed-card";
+            $this->collapsedicon="fa-plus";
         }
     }
 }
