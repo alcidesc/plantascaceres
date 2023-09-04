@@ -28,6 +28,7 @@ class CreateCabeceracomprasTable extends Migration
             $table->string('tipoPago')->nullable();
             $table->string('banco')->nullable();
             $table->integer('numeroTarjeta')->nullable();
+            $table->integer('tipoCompra')->nullable();
             $table->date('fechaPago')->nullable();
             $table->integer('numeroBoletas')->nullable();
 

@@ -23,6 +23,7 @@ class Cabeceracompra extends Model
         'banco',
         'numeroTarjeta',
         'fechaPago',
+        'tipoCompra',
         'numeroBoletas',
     ];
 }

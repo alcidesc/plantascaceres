@@ -73,7 +73,7 @@
 	</div>
 	<div {{($updateMode == 1) ? 'style=display:inline' : 'style=display:none'}}>
 		<div class="row">
-    		<div class="col-md-6">
+    		<div class="col-md-3">
     			<div class="form-group" wire:ignore>
                     <label for="informacion">Seleccione Proveedor </label><br>
                     <select class="form-select" id="proveedores" style="width: 100%" name="cliente_id" required>
@@ -85,7 +85,21 @@
                 </div>
 				@error('proveedor_id') <span class="text-danger">{{ $message }}</span>@enderror
     		</div>
-    		<div class="col-md-6">
+			<div class="col-md-3">
+                <div class="form-group" align="center">
+                    <label for="tipo_Compra">Tipo de Venta</label><br>
+                    <select class="form-control" wire:model="tipoCompra" id="tipo_Compra">
+                        <option value="1">Venta al Contado</option>
+                        <option value="2">Venta a Crédito</option>
+                    </select>
+                </div>
+                @error('tipoCompra')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+    		<div class="col-md-3">
     			<div class="form-group">
                     <label for="informacion">Nº de factura</label><br>
                     <div class="input-group mb-3">
@@ -96,7 +110,7 @@
     		</div>
     	</div>
 		<div class="row">
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<label for="TipoPago">Seleccionar Tipo de Pago:</label><br>
 				<select class="form-control" id="TipoPago" wire:model="TipoPago">
 					<option value="Efectivo">Efectivo</option>
@@ -105,6 +119,7 @@
 					<!-- Agrega más opciones de tipos de pago según tus necesidades -->
 				</select>
 			</div>
+			
 			@if ($TipoPago === 'Transferencia Bancaria')
             <div class="col-md-4 form-group">
                 <label for="banco">Seleccionar Banco:</label><br>
@@ -159,22 +174,24 @@
                     </thead>
                     <tbody>
 						@php $total=0; @endphp
-                        @foreach($prod_cargados as $prod)
+						@foreach($prod_cargados as $prod)
 							<tr>
-								<td>{{$prod['codigo']}}</td>
-								<td>{{$prod['nombre']}}</td>
+								<td>@if(isset($prod['codigo'])) {{ $prod['codigo'] }} @endif</td>
+								<td>@if(isset($prod['nombre'])) {{ $prod['nombre'] }} @endif</td>
 								<td>
-									<input type="number" class="form-control" value="{{$prod['cantidad']}}" wire:change="changecantidad($event.target.value,{{$prod['id']}})">
+									<input type="number" class="form-control" value="@if(isset($prod['cantidad'])) {{ $prod['cantidad'] }} @endif" wire:change="changecantidad($event.target.value,@if(isset($prod['id'])){{ $prod['id'] }}@else 0 @endif)">
 								</td>
-								<td>{{$prod['precio']}}</td>
-								{{-- <td>
-								<input type="number" class="form-control" value="{{$prod['precio']}}" wire:change="changeprecio($event.target.value,{{$prod['id']}})">
-								</td> --}}
-								<td>{{$prod['precio']*$prod['cantidad']}}</td>
-								<td><button class="btn btn-danger" wire:click="deleteitem({{$prod['id']}})"><i class="far fa-trash-alt"></i></button></td>
+								<td>
+									<input type="number" class="form-control" value="@if(isset($prod['precio'])) {{ $prod['precio'] }} @endif" wire:model="prod_cargados.{{ $loop->index }}.precio">
+								</td>
+								<td>@if(isset($prod['cantidad']) && isset($prod['precio'])) {{ $prod['precio'] * $prod['cantidad'] }} @endif</td>
+								<td><button class="btn btn-danger" wire:click="deleteitem(@if(isset($prod['id'])){{ $prod['id'] }}@else 0 @endif)"><i class="far fa-trash-alt"></i></button></td>
 							</tr>
-							@php $total+=$prod['precio']*$prod['cantidad']; @endphp
+							@php $total += isset($prod['cantidad']) && isset($prod['precio']) ? ($prod['precio'] * $prod['cantidad']) : 0; @endphp
 						@endforeach
+
+					
+
                     </tbody>
                 </table><hr>
             </div> 

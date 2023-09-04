@@ -20,7 +20,7 @@ class Compras extends Component{
     public $updateMode = 0;
 
     public $proveedor_id,$nfactura,$selectpro,$cabecera_id,$banco,$fechaPago,$numeroBoletas,$numeroTarjeta;
-    public $TipoPago = 'Efectivo';
+    public $TipoPago = 'Efectivo';public $tipoCompra;
 
     public $prod_cargados=[];
     
@@ -69,6 +69,7 @@ class Compras extends Component{
         ]);
     
         $cabecera = new Cabeceracompra;
+        $cabecera->tipoCompra = $this->tipoCompra == 2 ? $this->tipoCompra : 1; // Usar el valor del selector
         $cabecera->nfactura = $this->nfactura;
         $cabecera->proveedor_id = $this->proveedor_id;
         $cabecera->usuario_id = Auth::user()->id;
@@ -79,19 +80,13 @@ class Compras extends Component{
         $cabecera->numeroBoletas = $this->numeroBoletas ;
 
         if($cabecera->save()){
-            foreach($this->prod_cargados as $prod){
+            foreach($this->prod_cargados as $index => $prod) {
                 $producto = new Compraproductos;
                 $producto->producto_id = $prod['id'];
                 $producto->cantidad = $prod['cantidad'];
-                $producto->precio = $prod['precio'];
+                $producto->precio =  $prod['precio'];
                 $producto->cabecera_id = $cabecera->id;
                 
-                // Agregar los nuevos campos al producto
-                // $producto->TipoPago = $prod['TipoPago'];
-                // $producto->banco = $prod['banco'];
-                // $producto->numeroTarjeta = $prod['numeroTarjeta'];
-                // $producto->fechaPago = $prod['fechaPago'];
-                // $producto->numeroBoletas = $prod['numeroBoletas'];
                 
                 if($producto->save()){ 
                     $incremento = Producto::find($prod['id']);
