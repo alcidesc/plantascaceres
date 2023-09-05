@@ -137,12 +137,7 @@ class Compras extends Component{
             $this->prod_cargados[$producto->id]['codigo'] = $producto->codigo;
             $this->prod_cargados[$producto->id]['nombre'] = $producto->nombre;
             $this->prod_cargados[$producto->id]['cantidad'] = 1;
-            
-            if ($producto->oferta) {
-                $this->prod_cargados[$producto->id]['precio'] = $producto->oferta;
-            } else {
-                $this->prod_cargados[$producto->id]['precio'] = $producto->precio;
-            }
+            $this->prod_cargados[$producto->id]['precio'] = 0;
     
             // Agregar los nuevos campos
             $this->prod_cargados[$producto->id]['TipoPago'] = ''; // Tipo de pago

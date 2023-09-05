@@ -179,19 +179,16 @@
 								<td>@if(isset($prod['codigo'])) {{ $prod['codigo'] }} @endif</td>
 								<td>@if(isset($prod['nombre'])) {{ $prod['nombre'] }} @endif</td>
 								<td>
-									<input type="number" class="form-control" value="@if(isset($prod['cantidad'])) {{ $prod['cantidad'] }} @endif" wire:change="changecantidad($event.target.value,@if(isset($prod['id'])){{ $prod['id'] }}@else 0 @endif)">
+									<input type="number" class="form-control" value="{{$prod['cantidad']}}" wire:change="changecantidad($event.target.value,{{$prod['id']}})">
 								</td>
 								<td>
-									<input type="number" class="form-control" value="@if(isset($prod['precio'])) {{ $prod['precio'] }} @endif" wire:model="prod_cargados.{{ $loop->index }}.precio">
+									<input type="number" class="form-control" value="{{$prod['precio']}}" wire:change="changeprecio($event.target.value,{{$prod['id']}})">
 								</td>
 								<td>@if(isset($prod['cantidad']) && isset($prod['precio'])) {{ $prod['precio'] * $prod['cantidad'] }} @endif</td>
 								<td><button class="btn btn-danger" wire:click="deleteitem(@if(isset($prod['id'])){{ $prod['id'] }}@else 0 @endif)"><i class="far fa-trash-alt"></i></button></td>
 							</tr>
 							@php $total += isset($prod['cantidad']) && isset($prod['precio']) ? ($prod['precio'] * $prod['cantidad']) : 0; @endphp
 						@endforeach
-
-					
-
                     </tbody>
                 </table><hr>
             </div> 
