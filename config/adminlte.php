@@ -286,6 +286,12 @@ return [
 
         ],
         [
+            'text'        => 'informe-Credito-Contado',
+            'url'         => 'admin/tipoPago',
+            'icon'        => 'fas fa-compress-arrows-alt'
+
+        ],
+        [
             'header' => 'GASTOS',
         ],
         [

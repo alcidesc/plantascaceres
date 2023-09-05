@@ -79,9 +79,9 @@ Route::get('/admin/contabilidad', function () {
 
 Route::resource('/admin/empresa', App\Http\Controllers\EmpresaController::class)->middleware('auth');
 
-// Route::get('/admin/empresa', function () {
-//     return view('admin.empresa.index');
-// })->middleware('auth');
+ Route::get('/admin/tipoPago', function () {
+    return view('admin.tipoPago.index');
+ })->middleware('auth');
 
 
 //Ruta Frontend
