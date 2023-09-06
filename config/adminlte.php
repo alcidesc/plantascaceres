@@ -286,9 +286,9 @@ return [
 
         ],
         [
-            'text'        => 'informe-Credito-Contado',
+            'text'        => 'informe-Credito',
             'url'         => 'admin/tipoPago',
-            'icon'        => 'fas fa-compress-arrows-alt'
+            'icon'        => 'fas fa-clipboard-list'
 
         ],
         [
