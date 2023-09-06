@@ -9,7 +9,7 @@
 @section('content')
 
 <livewire:correos />
-
+ 
 @stop
 
 @section('js')

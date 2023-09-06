@@ -120,6 +120,10 @@ Route::get('/quienessomos', function () {
 
     return view('frontend.acerca');
 });
+Route::get('/admin/mensajes', function () {
+    return view('admin.mensajes.index');
+})->middleware('auth');
+Route::post('/enviarcorreo', [App\Http\Controllers\ContactoController::class, 'enviarcorreo'])->name('enviarcorreo');
 Route::get('/productos', function () {
     $empresa=Empresa::first();
     $texto = preg_replace ('/<[^>]*>/', ' ', $empresa->info);

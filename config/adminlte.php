@@ -340,6 +340,14 @@ return [
             'label_color' => 'success',
         ],
         [
+            'text'        => 'Mensajes',
+            'url'         => 'admin/mensajes',
+            'icon'        => 'fas fa-inbox',
+            'classes'     => 'mensajes',
+            'label'       => 0,
+            'label_color' => 'success',
+        ],
+        [
             'header' => 'account_settings',
         ],
         [
