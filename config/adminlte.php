@@ -276,7 +276,8 @@ return [
         [
             'text'        => 'Proveedores',
             'url'         => 'admin/proveedores',
-            'icon'        => 'fas fa-people-carry'
+            'icon'        => 'fas fa-people-carry',
+            'active'      => ['admin/proveedores', 'admin/proveedores*', 'regex:@^content/[0-9]+$@'],
 
         ],
         [
