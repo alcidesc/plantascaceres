@@ -11,6 +11,18 @@
 			z-index: 999;
 			border: none;
 		}
+		#whatsapp {
+			text-decoration: none;
+			position: fixed;
+			width: 55px;
+			height: 45px;
+			bottom: 35px;
+			right: 2%;
+			overflow: hidden;
+			z-index: 999;
+			border: none;
+			font-size: 24px;
+		}
 		table {
 			border: 1px solid #ccc;
 			border-collapse: collapse;
@@ -200,6 +212,11 @@
 				</span>
 			@endif
 		</button>
+		<a href="https://wa.me/{{$empresa->whatsapp}}">
+			<button class="btn btn-success" id="whatsapp">
+				<i class="bi bi-whatsapp"></i>
+			</button>
+		</a>
 	</p>
 	<!-- //footer -->
 </div>
