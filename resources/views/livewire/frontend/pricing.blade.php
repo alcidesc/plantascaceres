@@ -24,7 +24,7 @@
 		<div class="container">
 			<div class="row">
 				<div id="col-md-12"><br>
-					<h3 style="color:#eb646b;">Nuestros <span>Productos</span></h3>
+					<h1 style="color:#eb646b;text-align: center;">Nuestros <span>Productos</span></h1>
 					<p>Aquí encontrarás las mejores productos al mejor precio.</p><br>
 				</div>
 				<div id="col-md-12">

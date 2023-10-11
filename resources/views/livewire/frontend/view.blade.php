@@ -3,14 +3,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12" align="center">
-                        <h3 style="color:#eb646b;">
+                        <h1 style="color:#eb646b;">
                             @if($producto->tipo == 1)
                                 Producto
                             @else
                                 Servicio
                             @endif
                             <span>{{ $producto->nombre }}</span>
-                        </h3>
+                        </h1>
                         <small class="para1">
                             <b>Compartir:</b>
                             <a href="https://wa.me?text=Mira%20este%20producto%20{{ Request::fullUrl() }}" target="_blank">

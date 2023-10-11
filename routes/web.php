@@ -152,3 +152,5 @@ Route::get('/verproductos', function () {
 
     return view('frontend.verproductos');
 });
+
+Route::resource('/admin/servicios', App\Http\Controllers\ServicioController::class)->middleware('auth');

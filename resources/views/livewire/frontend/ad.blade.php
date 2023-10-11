@@ -2,7 +2,7 @@
 	<div class="wthree-mid jarallax">
 		<img class="jarallax-img" src="{{ asset('frontend/images/33.jpg')}}" alt="">
 		<div class="container">
-			<h3>{{ $empresa->nombre }}</h3>
+			<h1>{{ $empresa->nombre }}</h1>
 			<p style="color: white !important">
 				<?php
 		            $texto = preg_replace ('/<[^>]*>/', ' ', $empresa->info);

@@ -9,10 +9,10 @@
 		<div class="container" style="margin-top: -50px;">
 			<div class="row">
 				<div class="col-md-12">
-					<h3 class="tittle">Contacto</h3>
+					<h1 style="color:#eb646b; text-align: center;" class="tittle">Contacto</h1>
 				</div>
 				<div class="col-md-6">
-					<h3 class="tittle" style="color:#eb646b;">Formulario de contacto</h3>
+					<h1 class="tittle" style="color:#eb646b;">Formulario de contacto</h1>
 					<form action="{{ route('enviarcorreo') }}" method="post">
 						@csrf
 						<div class="contact-form2">
